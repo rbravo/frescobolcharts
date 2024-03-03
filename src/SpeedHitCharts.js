@@ -3,10 +3,12 @@ import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import SpeedHitsTable from './SpeedHitTable';
 import CollapsibleSection from './Collapsible';
+import FrescobolFileParser from './FrescobolParser';
+import Globals from './Globals';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const speedRanges = ['35-39', '40-49', '50-59', '60-69', '70-79', '80-89', '90-99', '100+'];
+let speedRanges = Globals.speedRanges;
 
 function processData(groupedHits) {
     const dataBySpeedRange = {};

@@ -1,9 +1,12 @@
 import React from 'react';
+import Globals from './Globals';
+
+let speedRanges = Globals.speedRanges;
 
 function SpeedHitsTable({ sequences, groupedHits }) {
     // Function to process data for the table, similar to chart data processing
     const processDataForTable = (hits) => {
-        const speedRanges = ['35-39', '40-49', '50-59', '60-69', '70-79', '80-89', '90-99', '100+'];
+        
         const dataBySpeedRange = {};
     
         var _hits = hits && hits.playerHits ? hits.playerHits : hits;
@@ -44,8 +47,8 @@ function SpeedHitsTable({ sequences, groupedHits }) {
                     <thead className="thead-dark">
                         <tr>
                             <th>Player</th>
-                            <th>35-39</th>
-                            <th>40-49</th>
+                            {/* <th>35-39</th>
+                            <th>40-49</th> */}
                             <th>50-59</th>
                             <th>60-69</th>
                             <th>70-79</th>
@@ -75,8 +78,8 @@ function SpeedHitsTable({ sequences, groupedHits }) {
                             <thead className="thead-light">
                                 <tr>
                                     <th>Player</th>
-                                    <th>35-39</th>
-                                    <th>40-49</th>
+                                    {/* <th>35-39</th>
+                                    <th>40-49</th> */}
                                     <th>50-59</th>
                                     <th>60-69</th>
                                     <th>70-79</th>
