@@ -83,7 +83,7 @@ function SpeedHitCharts({ sequences, groupedHits }) {
         const chartData = generateChartData(processedData);
         return <div>
             <h3>Somatório das sequências</h3>
-            <Bar data={chartData} options={options} />
+            <Bar data={chartData} options={options} style={{ paddingBottom: 20 }} />
             <SpeedHitsTable groupedHits={groupedHits} />
         </div>
 
@@ -110,7 +110,7 @@ function SpeedHitCharts({ sequences, groupedHits }) {
             return (
                 <div key={index}>
                     <h3>{sequence.title}</h3>
-                    <Bar data={chartData} options={options} />
+                    <Bar data={chartData} options={options} style={{ paddingBottom: 20 }} />
                     <SpeedHitsTable groupedHits={sequence} />
                     {/* <CollapsibleSection title={'Ver dados'} content={JSON.stringify(sequence)} /> */}
                 </div>

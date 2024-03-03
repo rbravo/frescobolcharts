@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import SpeedHitsChart from './SpeedHitCharts';
 import FileInputComponent from './FileInputComponent';
+import GameSummary from './Totais';
 
 function FrescobolFileParser() {
     const [result, setResult] = useState(null);
+    const [txtFile, setTxtFile] = useState(null);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -14,6 +16,7 @@ function FrescobolFileParser() {
         const reader = new FileReader();
         reader.onload = (e) => {
             const content = e.target.result;
+            setTxtFile(content);
             const jsonResult = parseFrescobolFile(content);
             setResult(jsonResult);
         };
@@ -86,6 +89,7 @@ function FrescobolFileParser() {
             <FileInputComponent handleFileChange={handleFileChange} />
             {result ?
                 <div>
+                    <GameSummary fileContent={txtFile} />
                     <SpeedHitsChart sequences={result.sequences} />
                     <SpeedHitsChart groupedHits={result.groupedHits} />
                 </div>
