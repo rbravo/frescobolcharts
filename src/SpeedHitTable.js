@@ -5,23 +5,34 @@ function SpeedHitsTable({ sequences, groupedHits }) {
     const processDataForTable = (hits) => {
         const speedRanges = ['35-39', '40-49', '50-59', '60-69', '70-79', '80-89', '90-99', '100+'];
         const dataBySpeedRange = {};
-
+    
         var _hits = hits && hits.playerHits ? hits.playerHits : hits;
         Object.keys(_hits).forEach((player) => {
             const playerHits = _hits[player];
             const counts = new Array(speedRanges.length).fill(0);
-
+    
             playerHits.forEach((hit) => {
-                const speedIndex = Math.min(Math.floor((hit.speed - 35) / 10), speedRanges.length - 1);
-                counts[speedIndex]++;
+                // Determine the correct index for the speed range
+                const speedIndex = speedRanges.findIndex(range => {
+                    if (range.includes('+')) {
+                        return hit.speed >= parseInt(range);
+                    } else {
+                        const [min, max] = range.split('-').map(Number);
+                        return hit.speed >= min && hit.speed <= max;
+                    }
+                });
+    
+                if (speedIndex !== -1) {
+                    counts[speedIndex]++;
+                }
             });
-
+    
             dataBySpeedRange[player] = counts;
         });
-
+    
         return dataBySpeedRange;
     };
-
+    
     // Choose the data processing function based on the props received
     const data = groupedHits ? processDataForTable(groupedHits) : null;
 

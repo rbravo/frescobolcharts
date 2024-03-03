@@ -2,6 +2,7 @@ import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import SpeedHitsTable from './SpeedHitTable';
+import CollapsibleSection from './Collapsible';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -15,8 +16,18 @@ function processData(groupedHits) {
         const counts = new Array(speedRanges.length).fill(0);
 
         playerHits.forEach(hit => {
-            const speedIndex = Math.min(Math.floor((hit.speed - 35) / 10), speedRanges.length - 1);
-            counts[speedIndex]++;
+            const speedIndex = speedRanges.findIndex(range => {
+                // Handle the '100+' case
+                if (range.includes('+')) {
+                    return hit.speed >= parseInt(range);
+                }
+                // Parse the range and compare
+                const [min, max] = range.split('-').map(Number);
+                return hit.speed >= min && hit.speed <= max;
+            });
+            if (speedIndex !== -1) { // Ensure the hit speed falls within the defined ranges
+                counts[speedIndex]++;
+            }
         });
 
         dataBySpeedRange[player] = counts;
@@ -99,6 +110,7 @@ function SpeedHitCharts({ sequences, groupedHits }) {
                     <h3>{sequence.title}</h3>
                     <Bar data={chartData} options={options} />
                     <SpeedHitsTable groupedHits={sequence} />
+                    {/* <CollapsibleSection title={'Ver dados'} content={JSON.stringify(sequence)} /> */}
                 </div>
             );
         });
