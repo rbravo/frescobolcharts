@@ -5,11 +5,17 @@ import FrescobolFileParser from './FrescobolParser';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Frescobol Charts</h1>
+      <header className="App-header" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <p style={{textAlign: 'left', margin: 6}}>
+          <h1>
+            FRESCOBOL PRO
+          </h1>
+          <h4>Analise gráfica de sequências de golpes</h4>
+        </p>
+        <img src={require('./logolira.png')} />
       </header>
       <FrescobolFileParser />
-      
+
     </div>
   );
 }

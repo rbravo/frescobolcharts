@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #3f6266;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,4 +34,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+h3 {
+  margin-top: 45px;
 }

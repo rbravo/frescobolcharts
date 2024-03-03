@@ -15,7 +15,7 @@ function FileInputComponent({ handleFileChange }) {
     };
 
     return (
-        <div className="input-group" style={{ padding: '25px', margin: 'auto' }}>
+        <div className="input-group" style={{ padding: '25px', margin: 'auto', maxWidth: 'min(540px, 85vw)' }}>
             <div className="custom-file" style={{ display: 'flex' }}>
                 <input
                     type="file"
@@ -26,7 +26,7 @@ function FileInputComponent({ handleFileChange }) {
                 />
                 {/* Use a button instead of a label to make it look like a primary button */}
                 <button
-                    className="btn btn-primary"
+                    className="btn btn-success"
                     onClick={() => document.getElementById('customFile').click()} // Trigger file input click
                     type="button"
                 >

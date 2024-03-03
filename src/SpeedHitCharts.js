@@ -45,7 +45,8 @@ function SpeedHitCharts({ sequences, groupedHits }) {
         plugins: {
             title: {
                 display: true,
-                text: 'Number of Hits by Speed Range',
+                text: 'Número de golpes por faixa de velocidade (em Km/h)',
+                //text: 'Number of Hits by Speed Range',
             },
         },
         scales: {
