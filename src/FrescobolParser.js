@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SpeedHitsChart from './SpeedHitCharts';
 import FileInputComponent from './FileInputComponent';
 import GameSummary from './Totais';
+import TimeChart from './TimeChart';
 
 function FrescobolFileParser() {
     const [result, setResult] = useState(null);
@@ -90,7 +91,7 @@ function FrescobolFileParser() {
             {result ?
                 <div>
                     <GameSummary fileContent={txtFile} />
-                    <SpeedHitsChart sequences={result.sequences} />
+                    <SpeedHitsChart sequences={result.sequences} fullFileTxt={txtFile} />
                     <SpeedHitsChart groupedHits={result.groupedHits} />
                 </div>
                 : ''}

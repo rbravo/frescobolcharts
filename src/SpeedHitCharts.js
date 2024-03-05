@@ -5,6 +5,7 @@ import SpeedHitsTable from './SpeedHitTable';
 import CollapsibleSection from './Collapsible';
 import FrescobolFileParser from './FrescobolParser';
 import Globals from './Globals';
+import TimeChart from './TimeChart';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -49,7 +50,7 @@ function generateChartData(dataBySpeedRange) {
     };
 }
 
-function SpeedHitCharts({ sequences, groupedHits }) {
+function SpeedHitCharts({ sequences, groupedHits, fullFileTxt }) {
     if (!groupedHits && !sequences) {
         return <p>Loading data or data not available...</p>;
     }
@@ -82,7 +83,7 @@ function SpeedHitCharts({ sequences, groupedHits }) {
         const processedData = processData(groupedHits);
         const chartData = generateChartData(processedData);
         return <div>
-            <h3>Somatório das sequências</h3>
+            <h3>SOMATÓRIO DAS SEQUÊNCIAS</h3>
             <Bar data={chartData} options={options} style={{ paddingBottom: 20 }} />
             <SpeedHitsTable groupedHits={groupedHits} />
         </div>
@@ -112,6 +113,7 @@ function SpeedHitCharts({ sequences, groupedHits }) {
                     <h3>{sequence.title}</h3>
                     <Bar data={chartData} options={options} style={{ paddingBottom: 20 }} />
                     <SpeedHitsTable groupedHits={sequence} />
+                    <TimeChart txtFile={fullFileTxt} sequenciaTitle={sequence.title} />
                     {/* <CollapsibleSection title={'Ver dados'} content={JSON.stringify(sequence)} /> */}
                 </div>
             );
