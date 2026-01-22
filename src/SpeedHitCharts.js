@@ -97,8 +97,9 @@ function SpeedHitCharts({ sequences, groupedHits, fullFileTxt }) {
         });
 
         return <div>
-            <h3>SOMATÓRIO DAS SEQUÊNCIAS - {totalPoints} pontos</h3>
-            <h5>SOMATÓRIO DOS 150 MELHORES GOLPES DE CADA JOGADOR - {bestHitsPoints} pontos</h5>
+            <h3>SOMATÓRIO DAS SEQUÊNCIAS</h3>
+            {/* <h3>SOMATÓRIO DAS SEQUÊNCIAS - {totalPoints} pontos</h3> */}
+            {/* <h5>SOMATÓRIO DOS 150 MELHORES GOLPES DE CADA JOGADOR - {bestHitsPoints} pontos</h5> */}
              <Bar data={chartData} options={options} style={{ paddingBottom: 20 }} />
             <SpeedHitsTable groupedHits={groupedHits} />
         </div>
@@ -125,7 +126,8 @@ function SpeedHitCharts({ sequences, groupedHits, fullFileTxt }) {
 
             return (
                 <div key={index}>
-                    <h3>{sequence.title} - {sequence.totalPoints} pontos</h3>
+                    <h3>{sequence.title}</h3>
+                    {/* <h3>{sequence.title} - {sequence.totalPoints} pontos</h3> */}
                     <Bar data={chartData} options={options} style={{ paddingBottom: 20 }} />
                     <SpeedHitsTable groupedHits={sequence} />
                     {/* <TimeChart txtFile={fullFileTxt} sequenciaTitle={sequence.title} /> */}
