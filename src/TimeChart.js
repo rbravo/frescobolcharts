@@ -119,7 +119,7 @@ const TimeChart = ({ txtFile, sequenciaTitle }) => {
             <div>
                 {parseFrescobolData(txtFile).filter(x => x.name == sequenciaTitle).map((sequencia, index) => (
                     <div key={index}>
-                        <h2>{sequencia.name}</h2>
+                        <h3>{sequencia.name}</h3>
                         <Line data={getChartData(sequencia)} options={{ responsive: true }} />
                     </div>
                 ))}
@@ -128,7 +128,7 @@ const TimeChart = ({ txtFile, sequenciaTitle }) => {
             <div>
                 {parseFrescobolData(txtFile).map((sequencia, index) => (
                     <div key={index}>
-                        <h2>{sequencia.name}</h2>
+                        <h3>{sequencia.name}</h3>
                         <Line data={getChartData(sequencia)} options={{ responsive: true }} />
                     </div>
                 ))}

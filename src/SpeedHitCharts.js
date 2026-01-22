@@ -3,7 +3,7 @@ import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import SpeedHitsTable from './SpeedHitTable';
 import CollapsibleSection from './Collapsible';
-import FrescobolFileParser from './FrescobolParser';
+import FrescobolFileParser, { calculatePoints } from './FrescobolParser';
 import Globals from './Globals';
 import TimeChart from './TimeChart';
 
@@ -82,9 +82,24 @@ function SpeedHitCharts({ sequences, groupedHits, fullFileTxt }) {
     if (groupedHits) {
         const processedData = processData(groupedHits);
         const chartData = generateChartData(processedData);
+        
+        // Calculate total points from all sequences
+        const totalPoints = sequences ? sequences.reduce((sum, seq) => sum + seq.totalPoints, 0) : 0;
+        
+        // somatorio 150 melhores golpes de cada jogador
+        var bestHitsPoints = 0;
+        Object.keys(groupedHits).forEach(player => {
+            const playerHits = groupedHits[player];
+            const sortedHits = playerHits.sort((a, b) => b.speed - a.speed);
+            const top150Hits = sortedHits.slice(0, 150);
+            const playerPoints = top150Hits.reduce((sum, hit) => sum + calculatePoints(hit.speed), 0);
+            bestHitsPoints += playerPoints;
+        });
+
         return <div>
-            <h3>SOMATÓRIO DAS SEQUÊNCIAS</h3>
-            <Bar data={chartData} options={options} style={{ paddingBottom: 20 }} />
+            <h3>SOMATÓRIO DAS SEQUÊNCIAS - {totalPoints} pontos</h3>
+            <h5>SOMATÓRIO DOS 150 MELHORES GOLPES DE CADA JOGADOR - {bestHitsPoints} pontos</h5>
+             <Bar data={chartData} options={options} style={{ paddingBottom: 20 }} />
             <SpeedHitsTable groupedHits={groupedHits} />
         </div>
 
@@ -110,10 +125,10 @@ function SpeedHitCharts({ sequences, groupedHits, fullFileTxt }) {
 
             return (
                 <div key={index}>
-                    <h3>{sequence.title}</h3>
+                    <h3>{sequence.title} - {sequence.totalPoints} pontos</h3>
                     <Bar data={chartData} options={options} style={{ paddingBottom: 20 }} />
                     <SpeedHitsTable groupedHits={sequence} />
-                    <TimeChart txtFile={fullFileTxt} sequenciaTitle={sequence.title} />
+                    {/* <TimeChart txtFile={fullFileTxt} sequenciaTitle={sequence.title} /> */}
                     {/* <CollapsibleSection title={'Ver dados'} content={JSON.stringify(sequence)} /> */}
                 </div>
             );
